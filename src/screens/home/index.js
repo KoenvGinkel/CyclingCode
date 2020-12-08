@@ -8,6 +8,8 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import styles from './style';
+// const Weather = require('weather-js');
+const Weather = require('weather');
 
 /**
  * Home screen component
@@ -28,6 +30,23 @@ export default class HomeScreen extends Component {
     this.props = props;
 
     this.state = {};
+    init();
+  }
+
+  init() {
+
+    const appID = 'j0ZLQGCsujuenJZ4y1nU'; // here.com appID
+    const appCode = 'sPd6myjVjwxg1zbNQgid913b2_M-MJxwZihDbWJ7dow'; // here.com appCode
+
+    const weather = new Weather({
+      appID,
+      appCode
+    });
+
+    weather.now('Neede, Netherlands').then((results) => {
+      console.log(results);
+    });
+
   }
 
   /**
