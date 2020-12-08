@@ -3,6 +3,16 @@ import { Text, View, KeyboardAvoidingView } from 'react-native';
 import styles from './style';
 import Weather from "../../lib/weather";
 import style from './style';
+import RNSimpleCompass from 'react-native-simple-compass';
+
+
+
+const degree_update_rate = 3; // Number of degrees changed before the callback is triggered
+
+RNSimpleCompass.start(degree_update_rate, (degree) => {
+  console.log('You are facing', degree);
+  RNSimpleCompass.stop();
+});
 
 /**
  * Home screen component
@@ -92,6 +102,41 @@ export default class HomeScreen extends Component {
    */
   weatherCallback(data) {
     this.setState({ weather: data });
+    const dirShort = data.data[0].wind_cdir
+    let dirLong = '';
+
+    for (let i = 0; i < dirShort.length; i++) {
+
+      if(i==0){
+        dirLong = this.windDirection(dirShort.charAt(i));
+      }else if(i==1){
+        dirLong = `${dirLong} - ${this.windDirection(dirShort.charAt(i))}`;
+      } else if(i==2){
+        const temp = this.windDirection(dirShort.charAt(i));
+        dirLong = `${dirLong}${temp.toLowerCase()}`;
+      }
+    }
+    
+    console.log(dirLong);
+  }
+
+  windDirection(letter) {
+    switch (letter) {
+      case 'N':
+        return 'Noord'
+        break;
+      case 'E':
+        return 'Oost'
+        break;
+      case 'S':
+        return 'Zuid'
+        break;
+      case 'W':
+        return 'West'
+        break;
+      default:
+      // code block
+    }
   }
 
   /**
