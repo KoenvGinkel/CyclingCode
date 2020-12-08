@@ -8,8 +8,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import styles from './style';
-// const Weather = require('weather-js');
-const Weather = require('weather');
+import Weather from '../../lib/weather'
 
 /**
  * Home screen component
@@ -30,23 +29,28 @@ export default class HomeScreen extends Component {
     this.props = props;
 
     this.state = {};
-    init();
+    Weather.getForecast(this.handleError, this.weatherCallback);
   }
 
-  init() {
 
-    const appID = 'j0ZLQGCsujuenJZ4y1nU'; // here.com appID
-    const appCode = 'sPd6myjVjwxg1zbNQgid913b2_M-MJxwZihDbWJ7dow'; // here.com appCode
+  /**
+   * Callback the received callback data.
+   * 
+   * @param {Object} data - Weather Callback.
+   * @version 1.0.0
+   */
+  weatherCallback(data){
+    console.log(data);
+  }
 
-    const weather = new Weather({
-      appID,
-      appCode
-    });
-
-    weather.now('Neede, Netherlands').then((results) => {
-      console.log(results);
-    });
-
+  /**
+   * Console log the given error.
+   * 
+   * @param {Object} error - handle the error. 
+   * @version 1.0.0
+   */
+  handleError(error) {
+    console.log(error);
   }
 
   /**
