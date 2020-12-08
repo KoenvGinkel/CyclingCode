@@ -1,3 +1,5 @@
+import Api from './api'
+
 /**
  * Manager class for authorization that can open the api key request url
  */
@@ -12,9 +14,8 @@ class Weather {
   }
 
   async getForecast(handleError, callback) {
-    const key = '';
 
-    fetch(`${this.apiUrl}/v2.0/forecast/daily?city=Neede&country=NL&days=1&key=${key}`, {
+    fetch(`${this.apiUrl}/v2.0/forecast/daily?city=Neede&country=NL&days=1&key=${Api.api}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',

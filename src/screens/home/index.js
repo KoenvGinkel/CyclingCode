@@ -116,7 +116,8 @@ export default class HomeScreen extends Component {
         <View style={styles.header}>
           <View style={style.headerInfo}>
             <Text>{this.state.weather.city_name}</Text>
-            <Text>{this.state.weather.data.temp}</Text>
+            <Text>{this.state.weather.data[0].temp}</Text>
+            <Text>{this.state.weather.data[0].wind_cdir}</Text>
           </View>
         </View>
       </KeyboardAvoidingView>
