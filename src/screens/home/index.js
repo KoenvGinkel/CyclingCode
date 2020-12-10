@@ -176,33 +176,32 @@ export default class HomeScreen extends Component {
   render() {
     return (
       <LinearGradient
-        colors={this.state.colorScheme.winter.day}
+        colors={this.state.colorScheme.summer.night}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={styles.background}
       >
         <KeyboardAvoidingView style={styles.loginScreenContainer}>
           <View style={styles.container}>
-            <Image style={styles.daytime} source={require('../../assets/day.png')}/>
+            <Image style={styles.daytime} source={require('../../assets/night.png')} />
             <Text style={styles.city}>{this.state.weather.city_name}</Text>
+            <Text style={styles.text}>{this.state.weather.data[0].temp} °C</Text>
           </View>
-          <View style={styles.header}>
-            <View style={style.headerInfo}>
-              <Text>{this.state.weather.city_name}</Text>
-              <Text>{this.state.weather.data[0].temp} °C</Text>
-              <Text>{this.state.windDirection} {this.state.weather.data[0].wind_dir}°</Text>
-              <Text>{this.state.weather.data[0].vis} km-zichtbaarheid</Text>
-              <Text>{this.state.weather.data[0].clouds}% Bewolking</Text>
-              <Text>{this.state.weather.data[0].weather.description}</Text>
-              <Text>{Math.floor(this.state.weather.data[0].wind_spd * 3.6)} km/h</Text>
-              <Text></Text>
-              <View>
-                {Weather.weatherGrade(this.state.weather.data[0].temp).map(kleding => {
-                  return (
-                    <Text key={kleding}>{kleding}</Text>
-                  );
-                })}
-              </View>
+          <View style={styles.weatherinfo}>
+            <Image style={styles.netherlands} source={require('../../assets/nl.png')} />
+            <Image style={[styles.wind, {transform: [{ rotate: `${this.state.weather.data[0].wind_dir}deg`}]}]} source={require('../../assets/winddir.png')} />
+            <Text>{this.state.windDirection} {this.state.weather.data[0].wind_dir}°</Text>
+            <Text>{this.state.weather.data[0].vis} km-zichtbaarheid</Text>
+            <Text>{this.state.weather.data[0].clouds}% Bewolking</Text>
+            <Text>{this.state.weather.data[0].weather.description}</Text>
+            <Text>{Math.floor(this.state.weather.data[0].wind_spd * 3.6)} km/h</Text>
+            <Text></Text>
+            <View>
+              {Weather.weatherGrade(this.state.weather.data[0].temp).map(kleding => {
+                return (
+                  <Text key={kleding}>{kleding}</Text>
+                );
+              })}
             </View>
           </View>
         </KeyboardAvoidingView>
