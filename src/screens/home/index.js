@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import { Text, View, KeyboardAvoidingView } from 'react-native';
+import { Text, View, KeyboardAvoidingView, Image } from 'react-native';
 import styles from './style';
 import Weather from "../../lib/weather";
 import style from './style';
-import RNSimpleCompass from 'react-native-simple-compass';
+import LinearGradient from 'react-native-linear-gradient'
+// import RNSimpleCompass from 'react-native-simple-compass';
 
 
 
-const degree_update_rate = 3; // Number of degrees changed before the callback is triggered
+// const degree_update_rate = 3; // Number of degrees changed before the callback is triggered
 
-RNSimpleCompass.start(degree_update_rate, (degree) => {
-  console.log('You are facing', degree);
-  RNSimpleCompass.stop();
-});
+// RNSimpleCompass.start(degree_update_rate, (degree) => {
+//   console.log('You are facing', degree);
+//   RNSimpleCompass.stop();
+// });
 
 /**
  * Home screen component
@@ -32,6 +33,11 @@ export default class HomeScreen extends Component {
     this.props = props;
 
     this.state = {
+      colorScheme: {
+        summer: { day: ['#098bdb', '#1ce4f9'], night: ['#1c00f9', '#8600ff'] },
+        winter: { day: ['#095fff', '#befff9'], night: ['#07263a', '#094068'] },
+      },
+      windDirection: '',
       weather: {
         "city_name": "Neede",
         "country_code": "NL",
@@ -105,34 +111,46 @@ export default class HomeScreen extends Component {
     const dirShort = data.data[0].wind_cdir
     let dirLong = '';
 
-    for (let i = 0; i < dirShort.length; i++) {
+    let currTime = `${Date.now()}`.slice(0, -3);
+    let sunrise = data.data[0].sunrise_ts;
+    let sunset = data.data[0].sunset_ts;
 
-      if(i==0){
+    console.log(data.data[0].wind_cdir_full)
+
+    // console.log(sunrise < currTime && sunset > currTime);
+
+    for (let i = 0; i < dirShort.length; i++) {
+      if (i == 0) {
         dirLong = this.windDirection(dirShort.charAt(i));
-      }else if(i==1){
+      } else if (i == 1) {
         dirLong = `${dirLong} - ${this.windDirection(dirShort.charAt(i))}`;
-      } else if(i==2){
+      } else if (i == 2) {
         const temp = this.windDirection(dirShort.charAt(i));
         dirLong = `${dirLong}${temp.toLowerCase()}`;
       }
     }
-    
-    console.log(dirLong);
+
+    this.setState({ windDirection: dirLong });
   }
 
+
+  /**
+   * 
+   * @param {String} letter - 
+   */
   windDirection(letter) {
     switch (letter) {
       case 'N':
-        return 'Noord'
-        break;
-      case 'E':
-        return 'Oost'
-        break;
-      case 'S':
         return 'Zuid'
         break;
-      case 'W':
+      case 'E':
         return 'West'
+        break;
+      case 'S':
+        return 'Noord'
+        break;
+      case 'W':
+        return 'Oost'
         break;
       default:
       // code block
@@ -157,15 +175,38 @@ export default class HomeScreen extends Component {
    */
   render() {
     return (
-      <KeyboardAvoidingView style={styles.loginScreenContainer}>
-        <View style={styles.header}>
-          <View style={style.headerInfo}>
-            <Text>{this.state.weather.city_name}</Text>
-            <Text>{this.state.weather.data[0].temp}</Text>
-            <Text>{this.state.weather.data[0].wind_cdir}</Text>
+      <LinearGradient
+        colors={this.state.colorScheme.winter.day}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.background}
+      >
+        <KeyboardAvoidingView style={styles.loginScreenContainer}>
+          <View style={styles.container}>
+            <Image style={styles.daytime} source={require('../../assets/day.png')}/>
+            <Text style={styles.city}>{this.state.weather.city_name}</Text>
           </View>
-        </View>
-      </KeyboardAvoidingView>
+          <View style={styles.header}>
+            <View style={style.headerInfo}>
+              <Text>{this.state.weather.city_name}</Text>
+              <Text>{this.state.weather.data[0].temp} °C</Text>
+              <Text>{this.state.windDirection} {this.state.weather.data[0].wind_dir}°</Text>
+              <Text>{this.state.weather.data[0].vis} km-zichtbaarheid</Text>
+              <Text>{this.state.weather.data[0].clouds}% Bewolking</Text>
+              <Text>{this.state.weather.data[0].weather.description}</Text>
+              <Text>{Math.floor(this.state.weather.data[0].wind_spd * 3.6)} km/h</Text>
+              <Text></Text>
+              <View>
+                {Weather.weatherGrade(this.state.weather.data[0].temp).map(kleding => {
+                  return (
+                    <Text key={kleding}>{kleding}</Text>
+                  );
+                })}
+              </View>
+            </View>
+          </View>
+        </KeyboardAvoidingView>
+      </LinearGradient>
     );
   }
 }
