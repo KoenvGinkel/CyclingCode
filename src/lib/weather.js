@@ -4,6 +4,7 @@ import Api from './api'
  * Manager class for authorization that can open the api key request url
  */
 class Weather {
+  
   /**
    * Retrieve api url.
    * @returns {String} - API URL

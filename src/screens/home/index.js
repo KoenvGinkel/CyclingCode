@@ -2,18 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, KeyboardAvoidingView, Image } from 'react-native';
 import styles from './style';
 import Weather from "../../lib/weather";
-import style from './style';
 import LinearGradient from 'react-native-linear-gradient'
-// import RNSimpleCompass from 'react-native-simple-compass';
-
-
-
-// const degree_update_rate = 3; // Number of degrees changed before the callback is triggered
-
-// RNSimpleCompass.start(degree_update_rate, (degree) => {
-//   console.log('You are facing', degree);
-//   RNSimpleCompass.stop();
-// });
 
 /**
  * Home screen component
@@ -22,6 +11,7 @@ import LinearGradient from 'react-native-linear-gradient'
  * @version 1.0.0
  */
 export default class HomeScreen extends Component {
+
   /**
    * Default constructor.
    *
@@ -188,8 +178,9 @@ export default class HomeScreen extends Component {
 
 
   /**
+   * Put in a letter, get a word in return. but the opposite direction.
    * 
-   * @param {String} letter - 
+   * @param {String} letter - just the letter that needs a explanation
    */
   windDirection(letter) {
     switch (letter) {
