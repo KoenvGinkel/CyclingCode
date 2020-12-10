@@ -16,7 +16,7 @@
 		<string>https://www.appicsoftware.com/vendor/images/cyclingcode_512x512.png</string>
 	</dict>
 	<key>method</key>
-	<string>development</string>
+	<string>ad-hoc</string>
 	<key>signingStyle</key>
 	<string>automatic</string>
 	<key>stripSwiftSymbols</key>

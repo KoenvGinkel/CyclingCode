@@ -13,33 +13,33 @@
 			<key>certificate</key>
 			<dict>
 				<key>SHA1</key>
-				<string>35ED771631D5A096F9F0C7A79B2B3038FDFFCACF</string>
+				<string>D2D4319DFF7938E36200D10D52F7A673DE8F348C</string>
 				<key>dateExpires</key>
-				<string>21/06/2021</string>
+				<string>01/07/2021</string>
 				<key>type</key>
-				<string>Apple Development</string>
+				<string>Apple Distribution</string>
 			</dict>
 			<key>entitlements</key>
 			<dict>
 				<key>application-identifier</key>
-				<string>8LHATU4WP9.com.appicsoftware.cyclingcode</string>
+				<string>8LHATU4WP9.nl.appicsoftware.cyclingcode</string>
 				<key>com.apple.developer.team-identifier</key>
 				<string>8LHATU4WP9</string>
 				<key>get-task-allow</key>
-				<true/>
+				<false/>
 				<key>keychain-access-groups</key>
 				<array>
-					<string>8LHATU4WP9.com.appicsoftware.cyclingcode</string>
+					<string>8LHATU4WP9.nl.appicsoftware.cyclingcode</string>
 				</array>
 			</dict>
 			<key>name</key>
-			<string>CyclingCode.app</string>
+			<string>Cycling Code.app</string>
 			<key>profile</key>
 			<dict>
 				<key>UUID</key>
-				<string>d6a0c5b7-8749-48c2-8df3-6629057ea7c9</string>
+				<string>78ed0464-c751-4abf-9c7e-19b2b8322035</string>
 				<key>name</key>
-				<string>iOS Team Provisioning Profile: *</string>
+				<string>iOS Team Ad Hoc Provisioning Profile: *</string>
 			</dict>
 			<key>team</key>
 			<dict>

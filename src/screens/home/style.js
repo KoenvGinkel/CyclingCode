@@ -1,4 +1,13 @@
 export default {
+  loadingscreen:{
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+    backgroundColor:'#00233A'
+  },
+  activity:{
+    marginTop: 30,
+  },
   background: {
     flex: 1,
   },
