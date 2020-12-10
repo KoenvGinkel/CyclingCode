@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, KeyboardAvoidingView, Image, ActivityIndicator } from 'react-native';
+import { Text, View, KeyboardAvoidingView, Image, ActivityIndicator, TextInput } from 'react-native';
 import styles from './style';
 import Weather from "../../lib/weather";
 import LinearGradient from 'react-native-linear-gradient'
@@ -28,6 +28,7 @@ export default class HomeScreen extends Component {
         summer: { day: ['#098bdb', '#1ce4f9'], night: ['#1c00f9', '#8600ff'] },
         winter: { day: ['#095fff', '#befff9'], night: ['#07263a', '#094068'] },
       },
+      cityname: 'Neede',
       windDirection: '',
       weather: {
         "city_name": "Neede",
@@ -106,8 +107,6 @@ export default class HomeScreen extends Component {
     let sunrise = data.data[0].sunrise_ts;
     let sunset = data.data[0].sunset_ts;
 
-    console.log(data.data[0].wind_cdir_full)
-
     let dateObj = new Date();
     let month = dateObj.getUTCMonth() + 1; //months from 1-12
     let day = dateObj.getUTCDate();
@@ -121,7 +120,6 @@ export default class HomeScreen extends Component {
           this.setState({ selectedColors: this.state.colorScheme.summer.night });
         }
       } else {
-        console.log('winter');
         if (dayOrNight) {
           this.setState({ selectedColors: this.state.colorScheme.winter.day });
         } else {
@@ -129,7 +127,6 @@ export default class HomeScreen extends Component {
         }
       }
     } else if (month > 3 && month < 10) {
-      console.log('summer');
       if (dayOrNight) {
         this.setState({ selectedColors: this.state.colorScheme.summer.day });
       } else {
@@ -137,14 +134,12 @@ export default class HomeScreen extends Component {
       }
     } else if (month == 10) {
       if (day >= 29) {
-        console.log('winter');
         if (dayOrNight) {
           this.setState({ selectedColors: this.state.colorScheme.winter.day });
         } else {
           this.setState({ selectedColors: this.state.colorScheme.winter.night });
         }
       } else {
-        console.log('summer');
         if (dayOrNight) {
           this.setState({ selectedColors: this.state.colorScheme.summer.day });
         } else {
@@ -152,7 +147,6 @@ export default class HomeScreen extends Component {
         }
       }
     } else {
-      console.log('winter');
       if (dayOrNight) {
         this.setState({ selectedColors: this.state.colorScheme.winter.day });
       } else {
@@ -235,7 +229,7 @@ export default class HomeScreen extends Component {
       !this.state.loaded ?
         <View style={styles.loadingscreen}>
           <Text style={styles.city}>Aan het laden...</Text>
-          <ActivityIndicator size="large" color="#ffffff" style={styles.activity}/>
+          <ActivityIndicator size="large" color="#ffffff" style={styles.activity} />
         </View>
         :
         <LinearGradient
@@ -247,7 +241,14 @@ export default class HomeScreen extends Component {
           <KeyboardAvoidingView style={styles.loginScreenContainer}>
             <View style={styles.container}>
               <Image style={styles.daytime} source={this.state.headerImage} />
-              <Text style={styles.city}>{this.state.weather.city_name}</Text>
+              <TextInput
+                style={styles.city} 
+                onEndEditing={() => Weather.getForecast(this.handleError, this.weatherCallback, this.state.cityname)} 
+                underlineColorAndroid='transparent' 
+                placeholder="Plaatsnaam..."
+                textAlign={'center'}
+                onChangeText={(cityname) => this.setState({cityname})}
+                >{this.state.cityname}</TextInput>
               <Text style={styles.text}>{this.state.weather.data[0].temp} °C</Text>
             </View>
             <View style={styles.weatherData}>
@@ -260,6 +261,7 @@ export default class HomeScreen extends Component {
                 })}
               </View>
               <View style={styles.weatherinfo}>
+                <Text style={styles.title}>Windrichting</Text>
                 <Image style={styles.netherlands} source={require('../../assets/nl.png')} />
                 <Image style={[styles.wind, { transform: [{ rotate: `${this.state.weather.data[0].wind_dir}deg` }] }]} source={require('../../assets/winddir.png')} />
                 <Text style={styles.text}>{this.state.windDirection} {Math.floor(this.state.weather.data[0].wind_spd * 3.6)} km/h</Text>

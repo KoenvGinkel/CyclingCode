@@ -14,9 +14,9 @@ class Weather {
     return 'https://api.weatherbit.io/';
   }
 
-  async getForecast(handleError, callback) {
+  async getForecast(handleError, callback, cityname = 'Neede') {
 
-    fetch(`${this.apiUrl}/v2.0/forecast/daily?city=Neede&country=NL&days=1&key=${Api.api}`, {
+    fetch(`${this.apiUrl}/v2.0/forecast/daily?city=${cityname},NL&key=${Api.api}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -66,7 +66,7 @@ class Weather {
       clothing.push('Handschoenen');
       clothing.push('Overschoenen');
 
-    } else if (temp >= 0 && temp < 5){
+    } else if (temp >= 3 && temp < 5){
       clothing.push('Langebroek');
       clothing.push('Wintershirt');
       clothing.push('Windstopper');
@@ -75,9 +75,9 @@ class Weather {
       clothing.push('Overschoenen');
       clothing.push('Muts');
 
-    } else if (temp < 0){
+    } else if (temp < 3){
       clothing.push('Langebroek');
-      clothing.push('Fietsjas');
+      clothing.push('Winterjack');
       clothing.push('Fleece Ondershirt');
       clothing.push('Handschoenen');
       clothing.push('Overschoenen');

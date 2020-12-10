@@ -1,3 +1,5 @@
+import { Platform } from 'react-native';
+
 export default {
   loadingscreen:{
     justifyContent: 'center',
@@ -15,6 +17,14 @@ export default {
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 80,
+  },
+  cityInput: {
+    fontFamily: 'futura',
+    fontSize: 30,
+    color: 'white',
+    marginTop: -20,
+    textAlign: 'center',
+    width: 200,
   },
   city: {
     fontFamily: 'futura',
@@ -36,7 +46,6 @@ export default {
     width: 125,
     height: 125,
     marginBottom: -115,
-    marginTop: 30,
     marginLeft: -10
   },
   wind:{
@@ -48,7 +57,6 @@ export default {
   weatherData:{
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
   },
   title:{
     fontFamily: 'futura',
@@ -58,10 +66,10 @@ export default {
   },
   daytime: {
     width: 200,
-    height: 200,
+    height: 200
   },
   loginScreenContainer: {
-    marginTop: 85,
-    padding: 20,
+    marginTop:  Platform.OS === 'ios' ? 85 : 25,
+    padding: 20
   },
 };
