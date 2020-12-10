@@ -5,6 +5,7 @@ export default {
   container: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 80,
   },
   city: {
     fontFamily: 'futura',
@@ -20,6 +21,7 @@ export default {
   },
   weatherinfo:{
     alignItems: 'center',
+    flex: 1,
   },
   netherlands:{
     width: 125,
@@ -31,15 +33,26 @@ export default {
   wind:{
     width: 60,
     height: 125,
-    marginBottom: 50,
+    marginBottom: 10,
     marginRight: -30,
+  },
+  weatherData:{
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title:{
+    fontFamily: 'futura',
+    fontSize: 25,
+    color: 'white',
+    marginBottom: 15,
   },
   daytime: {
     width: 200,
     height: 200,
   },
   loginScreenContainer: {
-    marginTop: 30,
+    marginTop: 85,
     padding: 20,
   },
 };

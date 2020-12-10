@@ -33,6 +33,7 @@ export default class HomeScreen extends Component {
     this.props = props;
 
     this.state = {
+      selectedColors: ['#098bdb', '#1ce4f9'],
       colorScheme: {
         summer: { day: ['#098bdb', '#1ce4f9'], night: ['#1c00f9', '#8600ff'] },
         winter: { day: ['#095fff', '#befff9'], night: ['#07263a', '#094068'] },
@@ -118,6 +119,58 @@ export default class HomeScreen extends Component {
     console.log(data.data[0].wind_cdir_full)
 
     // console.log(sunrise < currTime && sunset > currTime);
+    var dateObj = new Date();
+    var month = dateObj.getUTCMonth() + 1; //months from 1-12
+    var day = dateObj.getUTCDate();
+    var year = dateObj.getUTCFullYear();
+
+    if(month == 3){
+      if(day >= 26){
+        console.log('summer');
+        if(sunrise < currTime && sunset > currTime){
+          this.setState({selectedColors: this.state.colorScheme.summer.day});
+        } else {
+          this.setState({selectedColors: this.state.colorScheme.summer.night});
+        }
+      } else {
+        console.log('winter');
+        if(sunrise < currTime && sunset > currTime){
+          this.setState({selectedColors: this.state.colorScheme.winter.day});
+        } else {
+          this.setState({selectedColors: this.state.colorScheme.winter.night});
+        }
+      }
+    } else if (month > 3 && month < 10){
+      console.log('summer');
+      if(sunrise < currTime && sunset > currTime){
+        this.setState({selectedColors: this.state.colorScheme.summer.day});
+      } else {
+        this.setState({selectedColors: this.state.colorScheme.summer.night});
+      }
+    } else if(month == 10){
+      if(day >= 29){
+        console.log('winter');
+        if(sunrise < currTime && sunset > currTime){
+          this.setState({selectedColors: this.state.colorScheme.winter.day});
+        } else {
+          this.setState({selectedColors: this.state.colorScheme.winter.night});
+        }
+      } else {
+        console.log('summer');
+        if(sunrise < currTime && sunset > currTime){
+          this.setState({selectedColors: this.state.colorScheme.summer.day});
+        } else {
+          this.setState({selectedColors: this.state.colorScheme.summer.night});
+        }
+      }
+    } else {
+      console.log('winter');
+      if(sunrise < currTime && sunset > currTime){
+        this.setState({selectedColors: this.state.colorScheme.winter.day});
+      } else {
+        this.setState({selectedColors: this.state.colorScheme.winter.night});
+      }
+    }
 
     for (let i = 0; i < dirShort.length; i++) {
       if (i == 0) {
@@ -176,32 +229,30 @@ export default class HomeScreen extends Component {
   render() {
     return (
       <LinearGradient
-        colors={this.state.colorScheme.summer.night}
+        colors={this.state.selectedColors}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={styles.background}
       >
         <KeyboardAvoidingView style={styles.loginScreenContainer}>
           <View style={styles.container}>
-            <Image style={styles.daytime} source={require('../../assets/night.png')} />
+            <Image style={styles.daytime} source={require('../../assets/day.png')} />
             <Text style={styles.city}>{this.state.weather.city_name}</Text>
             <Text style={styles.text}>{this.state.weather.data[0].temp} °C</Text>
           </View>
-          <View style={styles.weatherinfo}>
-            <Image style={styles.netherlands} source={require('../../assets/nl.png')} />
-            <Image style={[styles.wind, {transform: [{ rotate: `${this.state.weather.data[0].wind_dir}deg`}]}]} source={require('../../assets/winddir.png')} />
-            <Text>{this.state.windDirection} {this.state.weather.data[0].wind_dir}°</Text>
-            <Text>{this.state.weather.data[0].vis} km-zichtbaarheid</Text>
-            <Text>{this.state.weather.data[0].clouds}% Bewolking</Text>
-            <Text>{this.state.weather.data[0].weather.description}</Text>
-            <Text>{Math.floor(this.state.weather.data[0].wind_spd * 3.6)} km/h</Text>
-            <Text></Text>
-            <View>
+          <View style={styles.weatherData}>
+            <View style={styles.weatherinfo}>
+            <Text style={styles.title}>Kleding</Text>
               {Weather.weatherGrade(this.state.weather.data[0].temp).map(kleding => {
                 return (
-                  <Text key={kleding}>{kleding}</Text>
+                  <Text style={styles.text} key={kleding}>{kleding}</Text>
                 );
               })}
+            </View>
+            <View style={styles.weatherinfo}>
+              <Image style={styles.netherlands} source={require('../../assets/nl.png')} />
+              <Image style={[styles.wind, { transform: [{ rotate: `${this.state.weather.data[0].wind_dir}deg` }] }]} source={require('../../assets/winddir.png')} />
+              <Text style={styles.text}>{this.state.windDirection} {Math.floor(this.state.weather.data[0].wind_spd * 3.6)} km/h</Text>
             </View>
           </View>
         </KeyboardAvoidingView>
