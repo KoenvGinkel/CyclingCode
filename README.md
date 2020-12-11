@@ -1,4 +1,4 @@
-![CyclingCode](https://appicsoftware.com/vendor/images/cyclingcodemock.png)
+![CyclingCode](readme/cyclingcodemock.png)
 
 # CyclingCode
 Cycling Code is just a simple React-Native application with an API connection with Weatherbit.
