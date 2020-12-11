@@ -6,5 +6,5 @@ This app gives the rider information about the weather, and what to wear. It als
 
 ## Roadmap
 I still want to add some things, like is it going to rain. And how bad is the weather upcoming 2 hours?
-Also i want to add some Self learning protocol, where the user gives feedback on the chosen clothing.
+Also I want to add some self learning protocol, where the user gives feedback on the chosen clothing.
 
